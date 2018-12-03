@@ -1,22 +1,25 @@
 #include "stdafx.h"
+#include "Renderer.h"
 #include <SFML/Graphics.hpp>
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!", sf::Style::Default);
+	Renderer rend;
+	rend.pWindow = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!", sf::Style::Default));
+	
 	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	shape.setFillColor(sf::Color::White);
 
 	// game loop
-	while (window.isOpen())
+	while (rend.pWindow->isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (rend.pWindow->pollEvent(event))
 		{
 			switch (event.type) 
 			{
 				case sf::Event::Closed:
-					window.close();
+					rend.pWindow->close();
 					break;
 				case sf::Event::Resized:
 					// resize graphics
@@ -35,8 +38,16 @@ int main()
 			}
 		}
 
-		window.clear();
-		window.draw(shape);
-		window.display();
+		rend.pWindow->clear();
+
+		sf::RectangleShape rect = sf::RectangleShape(sf::Vector2f(100.f, 100.f));
+		rect.setFillColor(sf::Color::Green);
+		std::vector<sf::RectangleShape> v = { rect };
+		rend.RenderShapes (v);
+		// rend.RenderSprites();
+		// rend.RenderText();
+
+		// window.draw(shape);
+		rend.pWindow->display();
 	}
 }
