@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main()
 {
@@ -9,6 +10,9 @@ int main()
 	
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::White);
+
+	// start a clock
+	sf::Clock clock;
 
 	// game loop
 	while (rend.pWindow->isOpen())
@@ -40,6 +44,7 @@ int main()
 
 		rend.pWindow->clear();
 
+		// test
 		sf::RectangleShape rect = sf::RectangleShape(sf::Vector2f(100.f, 100.f));
 		rect.setFillColor(sf::Color::Green);
 		std::vector<sf::RectangleShape> v = { rect };
@@ -49,5 +54,9 @@ int main()
 
 		// window.draw(shape);
 		rend.pWindow->display();
+
+		std::cout << "Elapsed time since last frame: " << clock.getElapsedTime().asMicroseconds() << std::endl;
+		// restart clock
+		clock.restart();
 	}
 }

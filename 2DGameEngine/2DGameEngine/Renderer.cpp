@@ -12,7 +12,8 @@ Renderer::~Renderer()
 
 }
 
-int Renderer::RenderShapes(std::vector<sf::RectangleShape> rectangleList,
+int Renderer::RenderShapes(
+	std::vector<sf::RectangleShape> rectangleList,
 	std::vector<sf::CircleShape> circleList,
 	std::vector<sf::ConvexShape> convexList)
 {
